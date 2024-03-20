@@ -30,41 +30,17 @@ class Movies(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
-class News(Base):
-    __tablename__ = 'news'
-    id = Column(Integer, primary_key=True)
-    title = Column(String(300))
-    image = Column(String(800))
-    news_description = Column(String(200000))
-    writer = Column(String(200))
-    date = Column(DateTime)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
-
 class Reviews(Base):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
-    rating_in_stars = Column(Float)
+    score = Column(Float)
+    user_opinion = Column(String(10000))
+    likes = Column(Integer)
+    dislikes = Column(Integer)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
-
-class Comments(Base):
-    __tablename__ = 'comments'
-    id = Column(Integer, primary_key=True)
-    comment = Column(String(10000))
-    date_and_hour = Column(DateTime)
-    reviews_id = Column(Integer, ForeignKey('reviews.id'))
-    reviews = relationship(Reviews)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
-
-class Likes(Base):
-    __tablename__ = 'likes'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
-    comments_id = Column(Integer, ForeignKey('comments.id'))
-    comments = relationship(Comments)
+    movies_id = Column(Integer, ForeignKey('movies.id'))
+    movies = relationship(Movies)
     
 class Favourites(Base):
     __tablename__ = 'favourites'
